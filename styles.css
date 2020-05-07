@@ -1,0 +1,59 @@
+body{
+    
+    text-align: center;
+    background-color: rgb(0, 68, 255);
+    margin: 20px;
+}
+
+
+h1{
+    
+    display: inline-block;
+    font-family: 'sans-serif';
+    font-size: 40px;
+    color: rgb(116, 201, 235);
+    text-align: center;
+    border: 2px dotted rgb(116, 201, 235);
+    padding: 10px;
+    border-radius: 10px;
+    letter-spacing: 2px;
+
+}
+
+hr{
+
+    color: rgb(116, 201, 235);
+
+}
+
+div{
+
+    font-family: sans-serif;
+    font-size: 25px;
+    color: rgb(116, 201, 235);
+    letter-spacing: 2px;
+    padding: 5px;
+    text-decoration: underline;
+
+}
+
+p{
+
+    font-family: sans-serif;
+    font-size: 20px;
+    color: rgb(116, 201, 235);
+    letter-spacing: 2px;
+
+}
+
+button{
+    
+    color: rgb(0, 68, 255);
+    background-color: rgb(116, 201, 235);
+    font-size: 30px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+}
