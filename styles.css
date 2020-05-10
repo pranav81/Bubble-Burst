@@ -1,8 +1,10 @@
 body{
     
-    text-align: center;
-    background-color: rgb(0, 68, 255);
+    text-align: center; 
     margin: 0px;
+    background-image: url(bubblebg.png);
+    text-shadow: 2px 2px rgb(0, 68, 255);
+    
 }
 
 
@@ -43,6 +45,7 @@ p{
     font-size: 20px;
     color: rgb(116, 201, 235);
     letter-spacing: 2px;
+    
 
 }
 
@@ -59,10 +62,14 @@ button{
 }
 
 a, a:visited{
+    
     color: rgb(0, 68, 255);
     text-decoration: none;
+
 }
 
 canvas{
+
     border: black dashed;
+    
 }
