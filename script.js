@@ -249,7 +249,6 @@ init();
 
 function init(){
     var t = 500, i = 0, pausekey = false,score=0, gameover=false;
-    var rest=false;
     canvas.addEventListener('mouseup',function(ev){
         if((ev.offsetX>(canvas.width - 35))&&(ev.offsetX<(canvas.width - 15))){
             if((ev.offsetY>(canvas.height-40))&&(ev.offsetY<(canvas.width-10))){
@@ -395,15 +394,15 @@ function init(){
 
     // }
     //if(rest==false){
-        var add = setInterval(function(){
+    var add = setInterval(function(){
 
-            if((pausekey==false) && (gameover == false)){
-            
-                addBubble();
-            
-                t-=50;
-            }
-        },t);
+        if((pausekey==false) && (gameover == false)){
+        
+            addBubble();
+        
+            t-=50;
+        }
+    },t);
     //}
     function drawPause(){
         if(pausekey==false){
@@ -616,24 +615,66 @@ function init(){
         //ctx.textAlign = 'center';
         var tw = ctx.measureText('DANGER!!!');
         ctx.fillText('DANGER!!!', canvas.width/2 - (tw.width/2), 35);
+        // if(dangerCall==0){
+        //     //drawCountdown();
+        // }
+        //dangerCall++;
+        
     }
+    //var count = 3;
+    // function drawCountdown(){
+    //     // var count=3;
+    //     var countdown=setInterval(function(){      //Every second, we reduce count by 1 until it is 0
+    //         if (count===0){
+    //           clearInterval(countdown);
+    //           gameover=true;
+    //           //end();
+    //         } else{
+    //           //countdownNumber.innerHTML=count;
+    //           count--;
+    //         }
+    //     },1000);
+    //     // ctx.fillStyle='red';
+    //     // var tw = ctx.measureText(count);
+    //     // ctx.fillText(count, canvas.width/2 - (tw.width/2), 75);
+    //     // console.log(count);
 
+
+    // }
+
+    // function cd(){
+    //     ctx.fillStyle='red';
+    //     var tw = ctx.measureText(count);
+        
+    //     ctx.fillText(count, canvas.width/2 - (tw.width/2), 75);
+    //     console.log(count);
+    // }
+    
     function checkArea(){
         //if(rest==false){
             var area= 0;
             for(var j = 0; j<i;j++){
                 
                 area += Math.PI * (Math.pow(b[j].rad,2));
-
+                //function cd(){
+                    //     ctx.fillStyle='red';
+                    //     var tw = ctx.measureText(count);
+                        
+                    //     ctx.fillText(count, canvas.width/2 - (tw.width/2), 75);
+                    //     console.log(count);
+                    // }
 
             }
             var totalArea = canvas.width*canvas.height;
             var fractionArea = area / totalArea;
             console.log(fractionArea);
-            if(fractionArea>0.3 && fractionArea<0.35){
+
+            if(fractionArea>0.3){
                 drawDanger();
+
             }
             if(fractionArea>0.35){
+                
                 gameover = true;
             }
         //}
@@ -683,6 +724,7 @@ function init(){
                 //     restartfn();
                 // }
                 drawRestart();
+                //cd();
                 //canvas.addEventListener('mousedown',checkClick);
             }
             
