@@ -610,6 +610,14 @@ function init(){
         }
     }
 
+    function drawDanger(){
+
+        ctx.fillStyle = 'red';
+        //ctx.textAlign = 'center';
+        var tw = ctx.measureText('DANGER!!!');
+        ctx.fillText('DANGER!!!', canvas.width/2 - (tw.width/2), 35);
+    }
+
     function checkArea(){
         //if(rest==false){
             var area= 0;
@@ -622,6 +630,9 @@ function init(){
             var totalArea = canvas.width*canvas.height;
             var fractionArea = area / totalArea;
             console.log(fractionArea);
+            if(fractionArea>0.3 && fractionArea<0.35){
+                drawDanger();
+            }
             if(fractionArea>0.35){
                 gameover = true;
             }
