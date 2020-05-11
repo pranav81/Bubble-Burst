@@ -11,6 +11,7 @@ init();
 function init(){
     
     var t = 500, i = 0, pausekey = false,score=0, gameover=false;       //Game variables
+    var colorgrad = 105, colorswitch=1;
     
     canvas.addEventListener('mouseup',function(ev){
         
@@ -47,13 +48,17 @@ function init(){
         draw = function() {                         //To draw a bubble onto the canvas
 
             var gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.rad);
-            gradient.addColorStop(0.8, 'rgb(0,68,255)');
-            gradient.addColorStop(1, 'white');
+            gradient.addColorStop(0.7, 'rgb(0,68,255)');
+            gradient.addColorStop(1, 'rgb(255,'+colorgrad+','+colorgrad+')');
             ctx.fillStyle = gradient;
             
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.rad, 0, Math.PI*2);
             ctx.fill();  
+            
+        
+            
+            console.log(colorgrad);
 
         }
 
@@ -87,6 +92,15 @@ function init(){
         }
 
     },t);
+
+    var colorswitchch = setInterval(function(){     //To change the color of the bubble
+        colorswitch*=-1;
+    },15000)
+    var colorchange = setInterval(function(){
+        
+      colorgrad+=colorswitch;  
+        
+    },100);
     
     function drawPause(){                           //Draw the pause icon if game isn't paused
 
