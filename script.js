@@ -10,7 +10,7 @@ init();
 
 function init(){
     
-    var t = 500, i = 0, pausekey = false,score=0, gameover=false;       //Game variables
+    var t = 750, i = 0, pausekey = false,score=0, gameover=false;       //Game variables
     var colorgrad = 105, colorswitch=1;
     
     canvas.addEventListener('mouseup',function(ev){
@@ -38,11 +38,14 @@ function init(){
 
         }
 
-        update = function() {                       //Updating the position of bubbles
+        update = function() {                       //Updating the position and radius of bubbles
 
             this.x += this.vx;
             this.y += this.vy;
-        
+            if(this.rad<40){
+                this.rad+=0.01;
+            }
+                    
         }
 
         draw = function() {                         //To draw a bubble onto the canvas
