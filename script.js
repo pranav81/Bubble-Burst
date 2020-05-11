@@ -1,6 +1,8 @@
 var canvas = document.querySelector('.canvas');
 canvas.width = window.innerWidth-10;                //Setting canvas size
 canvas.height = window.innerHeight-10;
+var popSound = new Audio('bubblepop.mp3');
+var gameOver = new Audio('gameover.mp3');
 
 var ctx = canvas.getContext('2d');
 
@@ -165,6 +167,7 @@ function init(){
                     b[k].flag = true;
                     scoreCount(b[k]);
                     b.splice(k,1);
+                    popSound.play();
                     i--;
 
                 }
@@ -312,6 +315,7 @@ function init(){
 
         if(fractionArea>0.35){                      //If a major part is covered, game over
             gameover = true;
+            gameOver.play();
         }
         
     }
