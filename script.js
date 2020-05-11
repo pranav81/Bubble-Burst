@@ -174,14 +174,13 @@ function init(){
             
         score += (10 -((e.rad-25)/5));
         score = Math.floor(score);
-        console.log(score);
 
         if (gameover == true){                      //If game over, push the score to scores[]
                 
             scores.push(score);                         
             best = Math.max(...scores);             //Update best if applicable
             if(best>window.localStorage.getItem('best')){
-            window.localStorage.setItem('best', JSON.stringify(best));
+                window.localStorage.setItem('best', JSON.stringify(best));
             }
 
         }
@@ -268,6 +267,7 @@ function init(){
             }
 
         }
+        
     }
 
     function drawDanger(){                          //Drawing the DANGER signal 
