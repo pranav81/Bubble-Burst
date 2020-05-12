@@ -178,7 +178,9 @@ function init(){
                     b[k].flag = true;
                     scoreCount(b[k]);
                     b.splice(k,1);
-                    popSound.play();
+                    if(gameover==false){
+                        popSound.play();
+                    }
                     i--;
 
                 }
@@ -345,8 +347,9 @@ function init(){
                 ctx.fillText(window.localStorage.getItem('bubble-best'), 10, 125);
                 ctx.strokeText(window.localStorage.getItem('bubble-best'), 10, 125);
             }
-            gameover = true;
+            
             gameOver.play();
+            gameover = true;
         }
         
     }
@@ -381,6 +384,5 @@ function init(){
         
     }
         
-
 }
 
