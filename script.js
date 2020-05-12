@@ -12,7 +12,7 @@ init();
 
 function init(){
     
-    var t = 750, i = 0, pausekey = false,score=0, gameover=false;       //Game variables
+    var t = 600, i = 0, pausekey = false,score=0, gameover=false;       //Game variables
     var colorgrad = 105, colorswitch=1;
     
     canvas.addEventListener('mouseup',function(ev){
@@ -92,19 +92,30 @@ function init(){
         if((pausekey==false) && (gameover == false)){
         
             addBubble();
-        
-            t-=50;
+            if(t>50){
+                t-=50;
+            }
         }
 
     },t);
-
+    
     var colorswitchch = setInterval(function(){     //To change the color of the bubble
+        if(pausekey==false){
         colorswitch*=-1;
-    },15000)
+        }
+    },15000);
     var colorchange = setInterval(function(){
+        if(pausekey==false){ 
+     
+            colorgrad+=colorswitch;  
+            if(colorgrad>255){
+                colorgrad=255;
+            }
+            else if(colorgrad<105){
+                colorgrad=105;
+            }
         
-      colorgrad+=colorswitch;  
-        
+        }
     },100);
     
     function drawPause(){                           //Draw the pause icon if game isn't paused
@@ -196,11 +207,12 @@ function init(){
         score = Math.floor(score);
 
         if (gameover == true){                      //If game over, push the score to scores[]
-                
-            scores.push(score);                         
-            best = Math.max(...scores);             //Update best if applicable
-            if(best>window.localStorage.getItem('best')){
-                window.localStorage.setItem('best', JSON.stringify(best));
+            if(score>Math.max(...scores)){    
+                scores.push(score);                         
+                best = Math.max(...scores);             //Update best if applicable
+                if((window.localStorage.getItem('bubble-best')==null) || (best>window.localStorage.getItem('bubble-best'))){
+                    window.localStorage.setItem('bubble-best', JSON.stringify(best));
+                }
             }
 
         }
@@ -222,13 +234,13 @@ function init(){
         ctx.fillText('BEST', 10, 95);
         ctx.strokeText('BEST', 10, 95);
 
-        if (window.localStorage.getItem == null){
+        if (window.localStorage.getItem('bubble-best') == null){
             ctx.fillText('0', 10, 125);
             ctx.strokeText('0',10, 125);
         }
         else{
-            ctx.fillText(window.localStorage.getItem('best'), 10, 125);
-            ctx.strokeText(window.localStorage.getItem('best'), 10, 125);
+            ctx.fillText(window.localStorage.getItem('bubble-best'), 10, 125);
+            ctx.strokeText(window.localStorage.getItem('bubble-best'), 10, 125);
         }
 
         if(gameover==true){
@@ -314,6 +326,25 @@ function init(){
         }
 
         if(fractionArea>0.35){                      //If a major part is covered, game over
+            ctx.font = '30px sans-serif';
+            ctx.fillStyle = 'rgb(116, 201, 235)';
+            ctx.strokeStyle = 'rgb(0,68,255)';
+            if(score>Math.max(...scores)){    
+                scores.push(score);                         
+                best = Math.max(...scores);             //Update best if applicable
+                if((window.localStorage.getItem('bubble-best')==null) || (best>window.localStorage.getItem('bubble-best'))){
+                    window.localStorage.setItem('bubble-best', JSON.stringify(best));
+                }
+            }
+
+            if (window.localStorage.getItem('bubble-best') == null){           
+                ctx.fillText('0', 10, 125);
+                ctx.strokeText('0',10, 125);
+            }
+            else{
+                ctx.fillText(window.localStorage.getItem('bubble-best'), 10, 125);
+                ctx.strokeText(window.localStorage.getItem('bubble-best'), 10, 125);
+            }
             gameover = true;
             gameOver.play();
         }
