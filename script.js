@@ -61,9 +61,46 @@ function init(){
             ctx.arc(this.x, this.y, this.rad, 0, Math.PI*2);
             ctx.fill();  
             
-        
+
+        }
+
+    }
+
+    class RockBubble{
+
+        constructor(x, y, radius){
+
+            this.rad = radius;
+            this.x = x;
+            this.y = y;
+            this.vx = Math.random()*2 - 1;
+            this.vy = Math.random()*2 - 1;
+            this.flag=false;  
+            this.clicks = 0;
+
+        }
+
+        update = function() {                       //Updating the position and radius of bubbles
+
+            this.x += this.vx;
+            this.y += this.vy;
+            if(this.rad<40){
+                this.rad+=0.01;
+            }
+                    
+        }
+
+        draw = function() {                         //To draw a bubble onto the canvas
+
+            var gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.rad);
+            gradient.addColorStop(0.7, 'rgb(0,68,'+(155+(this.clicks*25))+')');
+            gradient.addColorStop(1, 'rgb(255,'+colorgrad+','+colorgrad+')');
+            ctx.fillStyle = gradient;
             
-            console.log(colorgrad);
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.rad, 0, Math.PI*2);
+            ctx.fill();  
+            
 
         }
 
@@ -163,9 +200,20 @@ function init(){
 
             }
         }
-        
-        b.push(new Bubble(x, y, radius));
-        i++;                                        //i indicates the number of active bubbles
+        if(score>500){
+            if(Math.random()<0.75){
+                b.push(new Bubble(x, y, radius));
+                i++;                                        //i indicates the number of active bubbles
+            }
+            else{
+                b.push(new RockBubble(x, y, radius));
+                i++;
+            }
+        }
+        else{
+            b.push(new Bubble(x, y, radius));
+            i++;
+        }
         
     }
 
@@ -175,14 +223,32 @@ function init(){
             for(var k=0;k<i;k++){
                 
                 if(Math.sqrt(Math.pow((b[k].y - ev.offsetY), 2) + Math.pow((b[k].x - ev.offsetX), 2))<=(b[k].rad)){
-                    b[k].flag = true;
-                    scoreCount(b[k]);
-                    b.splice(k,1);
-                    if(gameover==false){
-                        popSound.play();
+                    if(b[k] instanceof Bubble){
+                        b[k].flag = true;
+                        scoreCount(b[k]);
+                        b.splice(k,1);
+                        if(gameover==false){
+                            popSound.play();
+                        }
+                        i--;
                     }
-                    i--;
-
+                    else if(b[k] instanceof RockBubble){
+                        if(b[k].clicks<4){
+                            b[k].clicks++;
+                            if(gameover==false){
+                                popSound.play();
+                            }
+                        }
+                        else{
+                            b[k].flag = true;
+                            scoreCount(b[k]);
+                            b.splice(k,1);
+                            if(gameover==false){
+                                popSound.play();
+                            }
+                            i--;
+                        }
+                    }
                 }
                 
             }
