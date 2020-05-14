@@ -12,7 +12,7 @@ init();
 
 function init(){
     
-    var t = 600, i = 0, pausekey = false,score=0, gameover=false;       //Game variables
+    var t = 700, i = 0, pausekey = false,score=0, gameover=false;       //Game variables
     var colorgrad = 105, colorswitch=1;
     
     canvas.addEventListener('mouseup',function(ev){
@@ -106,6 +106,49 @@ function init(){
 
     }
 
+    class FelixFelicis{
+
+        constructor(x,y,radius){
+
+            this.rad = radius;
+            this.x = x;
+            this.y = y;
+            this.vx = Math.random()*3 - 1.5;
+            this.vy = Math.random()*3 - 1.5;
+            this.flag=false;                        //Flag to indicate whether the bubble is in play
+
+        }
+
+        update = function() {                       //Updating the position and radius of bubbles
+
+            this.x += this.vx;
+            this.y += this.vy;
+            if(this.rad<40){
+                this.rad+=0.01;
+            }
+            this.vx+=0.05;
+            this.vy+=0.05;
+                    
+        }
+
+        draw = function() {                         //To draw a bubble onto the canvas
+
+            var gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.rad);
+            gradient.addColorStop(0.7, 'rgb(255,255,0)');
+            gradient.addColorStop(1, 'rgb(255,'+colorgrad+','+colorgrad+')');
+            ctx.fillStyle = gradient;
+            
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.rad, 0, Math.PI*2);
+            ctx.fill();  
+            
+
+        }
+
+        
+
+    }
+
     function drawRestart(){                         //Drawing the 'R' for restart 
 
         ctx.beginPath();
@@ -124,19 +167,22 @@ function init(){
 
     var b =new Array();
  
-    var add = setInterval(function(){               //To add a new bubble every few milliseconds
-
-        if((pausekey==false) && (gameover == false)){
-        
+    var add = function(){
+        if(pausekey==false && gameover==false){
             addBubble();
-            if(t>50){
-                t-=50;
-            }
-        }
 
-    },t);
+            if(t>400){
+                t-=25;
+
+            }
+            
+        }
+        setTimeout(add, t);
+
+    }
+    setTimeout(add, t);
     
-    var colorswitchch = setInterval(function(){     //To change the color of the bubble
+    var colourswitch = setInterval(function(){     //To change the color of the bubble
         if(pausekey==false){
         colorswitch*=-1;
         }
@@ -200,13 +246,18 @@ function init(){
 
             }
         }
-        if(score>500){
-            if(Math.random()<0.75){
+        if(score>250){
+            var rand = Math.random();
+            if(rand<0.75){
                 b.push(new Bubble(x, y, radius));
                 i++;                                        //i indicates the number of active bubbles
             }
-            else{
+            else if(rand<0.97){
                 b.push(new RockBubble(x, y, radius));
+                i++;
+            }
+            else{
+                b.push(new FelixFelicis(x, y, radius));
                 i++;
             }
         }
@@ -248,6 +299,16 @@ function init(){
                             }
                             i--;
                         }
+                    }
+                    else if(b[k] instanceof FelixFelicis){
+                        t=1000;
+                        b[k].flag = true;
+                        scoreCount(b[k]);
+                        b.splice(k,1);
+                        if(gameover==false){
+                            popSound.play();
+                        }
+                        i--;
                     }
                 }
                 
