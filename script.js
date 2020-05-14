@@ -17,8 +17,8 @@ function init(){
     
     canvas.addEventListener('mouseup',function(ev){
         
-        if((ev.offsetX>(canvas.width - 35))&&(ev.offsetX<(canvas.width - 15))){
-            if((ev.offsetY>(canvas.height-40))&&(ev.offsetY<(canvas.width-10))){
+        if((ev.offsetX>(canvas.width - 40))&&(ev.offsetX<(canvas.width - 5))){
+            if((ev.offsetY>(canvas.height-42))&&(ev.offsetY<(canvas.height-4))){
                 
                 window.location.reload();                               //Restart functionality
                 
@@ -126,8 +126,8 @@ function init(){
             if(this.rad<40){
                 this.rad+=0.01;
             }
-            this.vx+=0.05;
-            this.vy+=0.05;
+            this.vx+=(Math.floor((Math.random()*2)-1)*0.001);
+            this.vy+=(Math.floor((Math.random()*2)-1)*0.001);
                     
         }
 
@@ -152,7 +152,14 @@ function init(){
     function drawRestart(){                         //Drawing the 'R' for restart 
 
         ctx.beginPath();
-        ctx.fillStyle = 'rgb(116,201,235)';
+        ctx.fillStyle = 'rgb(255,105,0)';
+        
+        ctx.rect(canvas.width - 40, canvas.height - 42, 35, 38);
+        ctx.fill();
+              
+
+        ctx.beginPath();
+        ctx.fillStyle = 'rgb(255,205,0)';
         ctx.font = '35px sans-serif';
         
         if(gameover==false){
@@ -351,9 +358,8 @@ function init(){
     function drawText(){                            //Drawing the score and best onto the canvas
         
         ctx.font = '30px sans-serif';
-        ctx.fillStyle = 'rgb(116, 201, 235)';
-        ctx.strokeStyle = 'rgb(0,68,255)';        
-        
+        ctx.fillStyle = 'rgb(255,205,0)';      
+        ctx.strokeStyle = 'rgb(255,105,0)';
         ctx.fillText('SCORE',10,35);
         ctx.strokeText('SCORE',10,35);
 
@@ -375,7 +381,8 @@ function init(){
         if(gameover==true){
             ctx.font = '50px sans-serif';
             ctx.textAlign='center';
-            ctx.strokeStyle = 'rgb(0,68,255)';
+            ctx.fillStyle = 'rgb(255,205,0)';
+            ctx.strokeStyle = 'rgb(255,105,0)';
             ctx.fillText('GAME OVER',canvas.width/2,canvas.height/2);
             ctx.strokeText('GAME OVER',canvas.width/2,canvas.height/2);
             

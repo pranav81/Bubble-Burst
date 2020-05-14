@@ -3,7 +3,7 @@ body{
     text-align: center; 
     margin: 0px;
     background-image: url(bubblebg.png);
-    text-shadow: 2px 2px rgb(0, 68, 255);
+    text-shadow: 2px 2px rgb(255,105,0);
     
 }
 
@@ -43,7 +43,8 @@ p{
 
     font-family: sans-serif;
     font-size: 20px;
-    color: rgb(116, 201, 235);
+    text-shadow: rgb(255,105,0);
+    color: rgb(255,205,0);
     letter-spacing: 2px;
     
 
