@@ -2,6 +2,7 @@ var canvas = document.querySelector('.canvas');
 canvas.width = window.innerWidth-10;                //Setting canvas size
 canvas.height = window.innerHeight-10;
 var popSound = new Audio('bubblepop.mp3');
+popSound.volume = 0.1;
 var gameOver = new Audio('gameover.mp3');
 
 var ctx = canvas.getContext('2d');
@@ -14,6 +15,7 @@ function init(){
     
     var t = 700, i = 0, pausekey = false,score=0, gameover=false;       //Game variables
     var colorgrad = 105, colorswitch=1;
+    var countfelix=0;
     
     canvas.addEventListener('mouseup',function(ev){
         
@@ -264,8 +266,12 @@ function init(){
                 i++;
             }
             else{
-                b.push(new FelixFelicis(x, y, radius));
-                i++;
+                if(countfelix<2){
+                    b.push(new FelixFelicis(x, y, radius));
+                    i++;
+                    countfelix++;
+                }
+                
             }
         }
         else{
